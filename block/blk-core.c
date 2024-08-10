@@ -637,8 +637,8 @@ static void __submit_bio(struct bio *bio)
 
 	blk_finish_plug(&plug);
 	
-	u64 timestamp_ns = ktime_get_ns();
-	pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	u64 timestamp_ns2 = ktime_get_ns();
+	pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
 }
 
 /*
