@@ -50,6 +50,7 @@
 #include "blk-cgroup.h"
 #include "blk-throttle.h"
 #include "blk-ioprio.h"
+#include "sys.h"
 
 struct dentry *blk_debugfs_root;
 
@@ -615,9 +616,10 @@ static inline blk_status_t blk_check_zone_append(struct request_queue *q,
 
 static void __submit_bio(struct bio *bio)
 {
-	
-	u64 timestamp_ns = ktime_get_ns();
-	pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns = ktime_get_ns();
+		pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	}
 	/* If plug is not used, add new plug here to cache nsecs time. */
 	struct blk_plug plug;
 
@@ -636,9 +638,10 @@ static void __submit_bio(struct bio *bio)
 	}
 
 	blk_finish_plug(&plug);
-	
-	u64 timestamp_ns2 = ktime_get_ns();
-	pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns2 = ktime_get_ns();
+		pr_info("read syscall start, __submit_bio, start, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
+	}
 }
 
 /*

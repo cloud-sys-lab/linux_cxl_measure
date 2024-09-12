@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "sys.h"
+#define NUMBER_ENABLE_READ_LOG 463
 
 void test_read(const char *filepath) {
     char buffer[11];
@@ -11,6 +13,7 @@ void test_read(const char *filepath) {
         return;
     }
 
+    syscall(NUMBER_ENABLE_READ_LOG, true);
     ssize_t bytes_read = read(fd, buffer, 10);
     if (bytes_read == -1) {
         perror("Error reading file");

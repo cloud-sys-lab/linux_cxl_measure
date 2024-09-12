@@ -613,8 +613,11 @@ static inline loff_t *file_ppos(struct file *file)
 
 ssize_t ksys_read(unsigned int fd, char __user *buf, size_t count)
 {
-	u64 timestamp_ns = ktime_get_ns();
-	pr_info("read syscall start, ksys_read, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns = ktime_get_ns();
+		pr_info("read syscall start, ksys_read, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	}
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
 
@@ -629,9 +632,11 @@ ssize_t ksys_read(unsigned int fd, char __user *buf, size_t count)
 			f.file->f_pos = pos;
 		fdput_pos(f);
 	}
-	u64 timestamp_ns2 = ktime_get_ns();
-	pr_info("read syscall start, ksys_read, end, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
 	
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns2 = ktime_get_ns();
+		pr_info("read syscall start, ksys_read, end, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
+	}
 	return ret;
 }
 

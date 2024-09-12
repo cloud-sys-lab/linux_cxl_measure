@@ -1191,6 +1191,9 @@ asmlinkage long sys_old_mmap(struct mmap_arg_struct __user *arg);
  */
 asmlinkage long sys_ni_syscall(void);
 
+
+asmlinkage bool sys_enable_read_log(bool enable);
+
 #endif /* CONFIG_ARCH_HAS_SYSCALL_WRAPPER */
 
 asmlinkage long sys_ni_posix_timers(void);

@@ -15,6 +15,7 @@
 #include "cxlpci.h"
 #include "cxl.h"
 #include "pmu.h"
+#include "sys.h"
 
 /**
  * DOC: cxl pci
@@ -789,8 +790,10 @@ static int cxl_event_config(struct pci_host_bridge *host_bridge,
 static int cxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 {
 	
-	u64 timestamp_ns = ktime_get_ns();
-	pr_info("read syscall start, cxl_pci_probe, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns = ktime_get_ns();
+		pr_info("read syscall start, cxl_pci_probe, start, timestamp: %llu , PID: %d \n",timestamp_ns, current->pid);
+	}
 	struct pci_host_bridge *host_bridge = pci_find_host_bridge(pdev->bus);
 	struct cxl_memdev_state *mds;
 	struct cxl_dev_state *cxlds;
@@ -926,8 +929,11 @@ static int cxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
 	pci_save_state(pdev);
 
-	u64 timestamp_ns2 = ktime_get_ns();
-	pr_info("read syscall start, cxl_pci_probe, end, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
+	
+	if (current->enable_read_log == true) {
+		u64 timestamp_ns2 = ktime_get_ns();
+		pr_info("read syscall start, cxl_pci_probe, end, timestamp: %llu , PID: %d \n",timestamp_ns2, current->pid);
+	}
 	return rc;
 }
 

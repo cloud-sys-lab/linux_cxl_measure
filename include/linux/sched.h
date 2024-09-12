@@ -982,6 +982,7 @@ struct task_struct {
 
 	pid_t				pid;
 	pid_t				tgid;
+	bool				enable_read_log = false;
 
 #ifdef CONFIG_STACKPROTECTOR
 	/* Canary value for the -fstack-protector GCC feature: */
