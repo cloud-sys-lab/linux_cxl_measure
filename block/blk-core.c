@@ -50,7 +50,6 @@
 #include "blk-cgroup.h"
 #include "blk-throttle.h"
 #include "blk-ioprio.h"
-#include "sys.h"
 
 struct dentry *blk_debugfs_root;
 

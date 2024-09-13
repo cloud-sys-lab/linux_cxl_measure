@@ -385,6 +385,7 @@
 461	common	lsm_list_modules	sys_lsm_list_modules
 462 	common  mseal			sys_mseal
 
+464     64  enable_read_log      sys_enable_read_log
 #
 # Due to a historical design error, certain syscalls are numbered differently
 # in x32 as compared to native x86_64.  These syscalls have numbers 512-547.

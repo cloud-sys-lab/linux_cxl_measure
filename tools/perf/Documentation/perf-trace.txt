@@ -298,7 +298,7 @@ Trace the first minor page fault when running a workload:
                                        load_elf_binary ([kernel.kallsyms])
                                        search_binary_handler ([kernel.kallsyms])
                                        __do_execve_file.isra.33 ([kernel.kallsyms])
-                                       __x64_sys_execve ([kernel.kallsyms])
+                                       execve ([kernel.kallsyms])
                                        do_syscall_64 ([kernel.kallsyms])
                                        entry_SYSCALL_64 ([kernel.kallsyms])
   #

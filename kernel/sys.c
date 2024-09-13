@@ -76,7 +76,6 @@
 #include <asm/unistd.h>
 
 #include "uid16.h"
-#include "sys.h"
 
 #ifndef SET_UNALIGN_CTL
 # define SET_UNALIGN_CTL(a, b)	(-EINVAL)
@@ -2881,6 +2880,15 @@ SYSCALL_DEFINE1(sysinfo, struct sysinfo __user *, info)
 
 	return 0;
 }
+SYSCALL_DEFINE1(enable_read_log, bool, enable) {
+	if (enable) {
+		printk("sys_enable_read_log, enable: true");
+	} else {
+		printk("sys_enable_read_log, enable: false");
+	}
+	current->enable_read_log = enable;	
+	return 0;
+}
 
 #ifdef CONFIG_COMPAT
 struct compat_sysinfo {
@@ -2948,13 +2956,3 @@ COMPAT_SYSCALL_DEFINE1(sysinfo, struct compat_sysinfo __user *, info)
 	return 0;
 }
 #endif /* CONFIG_COMPAT */
-
-
-SYSCALL_DEFINE1(sys_enable_read_log, bool enable) {
-	if (enable) {
-		printk("sys_enable_read_log, enable: true");
-	} else {
-		printk("sys_enable_read_log, enable: false");
-	}
-	current->enable_read_log = enable;	
-}

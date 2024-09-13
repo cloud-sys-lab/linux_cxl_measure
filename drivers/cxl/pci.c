@@ -15,7 +15,6 @@
 #include "cxlpci.h"
 #include "cxl.h"
 #include "pmu.h"
-#include "sys.h"
 
 /**
  * DOC: cxl pci
